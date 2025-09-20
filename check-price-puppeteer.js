@@ -22,8 +22,9 @@ try {
   // 默认配置
   config = {
     scan: {
-      start: 112509,
-      end: 112510,
+      ranges: [
+        { start: 112509, end: 112510 }
+      ],
       concurrency: 1,
       timeoutMs: 30000,
       targetSnippet: "is available",
@@ -57,7 +58,17 @@ try {
 
 // 从配置中提取变量
 const { scan, filter, output, browser, delays } = config;
-const { start: START, end: END, concurrency: CONCURRENCY, timeoutMs: TIMEOUT_MS, targetSnippet: TARGET_SNIPPET, saveOk: SAVE_OK } = scan;
+
+// 支持新的 ranges 配置和旧的 start/end 配置
+let ranges = [];
+if (scan.ranges && Array.isArray(scan.ranges)) {
+  ranges = scan.ranges;
+} else if (scan.start !== undefined && scan.end !== undefined) {
+  // 兼容旧配置
+  ranges = [{ start: scan.start, end: scan.end }];
+}
+
+const { concurrency: CONCURRENCY, timeoutMs: TIMEOUT_MS, targetSnippet: TARGET_SNIPPET, saveOk: SAVE_OK } = scan;
 const { skipNumbers: SKIP_NUMBERS, skipPatterns: SKIP_PATTERNS } = filter;
 const { resultFile: outFile, errorFile: errFile } = output;
 
@@ -217,7 +228,12 @@ async function run() {
   }
 
   // 生成域名数字列表并应用过滤
-  const allNumbers = Array.from({ length: END - START + 1 }, (_, i) => START + i);
+  let allNumbers = [];
+  for (const range of ranges) {
+    const rangeNumbers = Array.from({ length: range.end - range.start + 1 }, (_, i) => range.start + i);
+    allNumbers = allNumbers.concat(rangeNumbers);
+  }
+  
   const numbers = allNumbers.filter(n => !shouldSkipDomain(n));
   
   const skippedCount = allNumbers.length - numbers.length;
@@ -272,7 +288,9 @@ async function run() {
     }
   }
 
-  console.log(`Puppeteer 扫描开始：${START}-${END}，并发=${CONCURRENCY}，总计=${total}${skippedCount > 0 ? ` (跳过${skippedCount}个)` : ''}`);
+  // 构建范围显示字符串
+  const rangeStr = ranges.map(r => `${r.start}-${r.end}`).join(', ');
+  console.log(`Puppeteer 扫描开始：[${rangeStr}]，并发=${CONCURRENCY}，总计=${total}${skippedCount > 0 ? ` (跳过${skippedCount}个)` : ''}`);
   
   if (SKIP_NUMBERS.length > 0) {
     console.log(`🔍 过滤规则：跳过包含数字 [${SKIP_NUMBERS.join(', ')}] 的域名`);
