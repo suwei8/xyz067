@@ -1,12 +1,20 @@
 {
   "scan": {
-    "start": 118800,
-    "end": 118899,
+    "ranges": [
+      { "start": 112200 , "end": 112299 },
+      { "start": 111000, "end": 111999 },
+      { "start": 555000, "end": 555999 },
+      { "start": 556600, "end": 556699 },
+      { "start": 558800, "end": 558899 },
+      { "start": 520000, "end": 520999 },
+      { "start": 666000, "end": 666999 },
+      { "start": 888000, "end": 888999 }
+    ],
     "concurrency": 1,
     "timeoutMs": 30000,
     "targetSnippet": "$0.67",
     "saveOk": false,
-    "comment": "targetSnippet: 目标价格片段，同时还会检查域名是否可用(is available)"
+    "comment": "ranges: 扫描范围数组，支持多个数字段同时扫描; targetSnippet: 目标价格片段，同时还会检查域名是否可用(is available)"
   },
   "filter": {
     "skipNumbers": ["3", "4", "7"],
