@@ -1,0 +1,14 @@
+{
+  "name": "spaceship-scan",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "postinstall": "node -e \"console.log('Puppeteer postinstall: ensure Chromium is downloaded')\"",
+    "scan:puppeteer": "node check-price-puppeteer.js",
+    "validate-config": "node validate-config.js"
+  },
+  "dependencies": {
+    "puppeteer": "^24.10.2"
+  }
+}

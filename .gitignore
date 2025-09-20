@@ -1,0 +1,29 @@
+# 日志文件
+errors.log
+
+# 调试文件
+debug*.js
+debug*.png
+
+# 配置文件（如果包含敏感信息可以取消注释下面这行）
+# config.json
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 临时文件
+*.tmp
+*.temp
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
