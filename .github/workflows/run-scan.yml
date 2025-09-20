@@ -1,110 +1,27 @@
-name: Spaceship Domain Scanner
+name: Domain Scanner
 
 on:
   schedule:
-    # 每小时运行一次
     - cron: '0 */6 * * *'
-  workflow_dispatch: # 允许手动触发
+  workflow_dispatch:
 
 jobs:
   scan:
     runs-on: ubuntu-latest
-    timeout-minutes: 60
     permissions:
       contents: write
-      actions: read
-    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci || npm install
-      
-    - name: Configure git
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        
-    - name: Run domain scan with hourly commits
-      run: |
-        # 获取运行计数
-        RUN_COUNT_FILE=".github/run_count"
-        if [ -f "$RUN_COUNT_FILE" ]; then
-          RUN_COUNT=$(cat $RUN_COUNT_FILE)
-        else
-          RUN_COUNT=0
-        fi
-        
-        RUN_COUNT=$((RUN_COUNT + 1))
-        echo $RUN_COUNT > $RUN_COUNT_FILE
-        
-        echo "当前运行次数: $RUN_COUNT/6"
-        echo "开始扫描时间: $(date)"
-        
-        # 运行扫描
-        npm run scan:puppeteer
-        
-        # 检查是否有结果文件并提交
-        if [ -f "found_0_67.md" ]; then
-          echo "发现扫描结果，准备提交..."
-          
-          # 添加时间戳到文件末尾
-          echo "" >> found_0_67.md
-          echo "<!-- 扫描时间: $(date) 运行次数: $RUN_COUNT -->" >> found_0_67.md
-          
-          # 提交结果
-          git add found_0_67.md $RUN_COUNT_FILE
-          git commit -m "域名扫描结果更新 - $(date '+%Y-%m-%d %H:%M') (第${RUN_COUNT}次)" || echo "没有新的更改需要提交"
-          
-          # 推送到远程仓库
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - name: Run scan
+        run: npm run scan:puppeteer
+      - name: Commit results
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add found_0_67.md
+          git commit -m "Update scan results $(date)" || exit 0
           git push
-          
-          echo "✅ 结果已提交并推送"
-        else
-          echo "⚠️ 没有找到扫描结果文件"
-          # 仍然提交运行计数
-          git add $RUN_COUNT_FILE
-          git commit -m "更新运行计数: $RUN_COUNT (无扫描结果)" || echo "计数器无需提交"
-          git push
-        fi
-        
-        # 检查是否已运行6次（5.5小时）
-        if [ $RUN_COUNT -ge 6 ]; then
-          echo "🛑 已达到最大运行次数(6次)，重置计数器并停止"
-          # 重置计数器
-          echo "0" > $RUN_COUNT_FILE
-          git add $RUN_COUNT_FILE
-          git commit -m "重置运行计数器 - 完成一轮扫描" || echo "重置无需提交"
-          git push
-          
-          # 创建停止标记（可选）
-          echo "COMPLETED_AT=$(date)" > .github/last_completion
-          git add .github/last_completion
-          git commit -m "标记扫描轮次完成 - $(date)" || echo "完成标记无需提交"
-          git push
-          
-          echo "✅ 本轮扫描完成，工作流将停止"
-        else
-          echo "⏳ 继续等待下次扫描，剩余 $((6 - RUN_COUNT)) 次"
-        fi
-        
-    - name: Upload artifacts (备份)
-      uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: scan-results-${{ github.run_number }}
-        path: |
-          found_0_67.md
-          errors.log
-          .github/run_count
-          .github/last_completion
-        retention-days: 7
