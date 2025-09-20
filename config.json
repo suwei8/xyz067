@@ -1,7 +1,7 @@
 {
   "scan": {
-    "start": 112500,
-    "end": 112510,
+    "start": 112200,
+    "end": 112299,
     "concurrency": 1,
     "timeoutMs": 30000,
     "targetSnippet": "$0.67",

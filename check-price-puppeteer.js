@@ -134,7 +134,7 @@ async function newPage(browserInstance) {
   return page;
 }
 
-async function checkOne(browserInstance, n) {
+async function checkOne(browserInstance, n, existingDomains) {
   const url = buildUrl(n);
   const page = await newPage(browserInstance);
   
@@ -170,8 +170,14 @@ async function checkOne(browserInstance, n) {
     const hit = isAvailable;
     
     if (hit) {
-      appendLine(outputFile, `## [${n}.xyz](${url})`);
-      return { n, url, hit: true, status, saved: true };
+      // 检查是否已存在，避免重复
+      if (!existingDomains.has(n.toString())) {
+        appendLine(outputFile, `## [${n}.xyz](${url})`);
+        existingDomains.add(n.toString()); // 添加到已存在列表
+        return { n, url, hit: true, status, saved: true };
+      } else {
+        return { n, url, hit: true, status, saved: false, duplicate: true };
+      }
     }
     
     // 命中失败但状态为 OK 且开启 SAVE_OK，也写入
@@ -191,9 +197,24 @@ async function checkOne(browserInstance, n) {
 }
 
 async function run() {
-  // 清理旧文件
-  try { fs.unlinkSync(outputFile); } catch {}
+  // 不清理结果文件，只清理错误日志
   try { fs.unlinkSync(errorFile); } catch {}
+  
+  // 读取现有结果文件，获取已存在的域名列表
+  let existingDomains = new Set();
+  try {
+    const existingContent = fs.readFileSync(outputFile, 'utf8');
+    const matches = existingContent.match(/\[(\d+)\.xyz\]/g);
+    if (matches) {
+      matches.forEach(match => {
+        const domain = match.match(/\[(\d+)\.xyz\]/)[1];
+        existingDomains.add(domain);
+      });
+    }
+    console.log(`📋 已存在 ${existingDomains.size} 个域名记录`);
+  } catch (e) {
+    console.log('📄 创建新的结果文件');
+  }
 
   // 生成域名数字列表并应用过滤
   const allNumbers = Array.from({ length: END - START + 1 }, (_, i) => START + i);
@@ -236,10 +257,14 @@ async function run() {
       const cur = idx++;
       const n = numbers[cur];
       
-      const r = await checkOne(browserInstance, n);
+      const r = await checkOne(browserInstance, n, existingDomains);
       if (r.hit) {
-        hits++;
-        console.log(`${n}.xyz  命中`);
+        if (r.duplicate) {
+          console.log(`${n}.xyz  命中 (重复跳过)`);
+        } else {
+          hits++;
+          console.log(`${n}.xyz  命中`);
+        }
       } else {
         console.log(`${n}.xyz  未命中`);
       }
