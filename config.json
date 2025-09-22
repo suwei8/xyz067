@@ -1,8 +1,8 @@
 {
   "scan": {
     "ranges": [
-      { "start": 123000 , "end": 123999 },
-      { "start": 100000, "end": 100999 }
+      { "start": 101000 , "end": 101099 },
+      { "start": 100000, "end": 100099 }
     ],
     "concurrency": 1,
     "timeoutMs": 30000,
