@@ -235,3 +235,4 @@
 ## [888950.xyz](https://www.spaceship.com/domain-search/?query=888950.xyz&beast=false&tab=domains)
 ## [666180.xyz](https://www.spaceship.com/domain-search/?query=666180.xyz&beast=false&tab=domains)
 ## [888615.xyz](https://www.spaceship.com/domain-search/?query=888615.xyz&beast=false&tab=domains)
+## [666506.xyz](https://www.spaceship.com/domain-search/?query=666506.xyz&beast=false&tab=domains)
