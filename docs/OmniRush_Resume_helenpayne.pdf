@@ -1,0 +1,67 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 4 0 R /F2 5 0 R >> >> /Contents 6 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+6 0 obj
+<< /Length 2619 >>
+stream
+0.12 0.23 0.34 rg
+BT /F2 22 Tf 1 0 0 1 49 783 Tm (HELENPAYNE) Tj ET
+BT /F2 10 Tf 1 0 0 1 49 749 Tm (OPEN-SOURCE AUTOMATION & LINUX NETWORKING) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 721 Tm (GitHub: github.com/helenpayne  |  Application: OmniRush AI) Tj ET
+BT /F2 11 Tf 1 0 0 1 49 696 Tm (PROFILE) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 667 Tm (Technology enthusiast and open-source contributor with public projects) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 650 Tm (focused on Shell scripting, CI workflows, Linux networking tools and) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 633 Tm (embedded router firmware build automation.) Tj ET
+BT /F2 11 Tf 1 0 0 1 49 608 Tm (TECHNICAL FOCUS) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 579 Tm (Shell scripting  /  GitHub Actions  /  Linux  /  OpenWrt) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 562 Tm (Network tunneling tools  /  CI automation  /  Build workflows) Tj ET
+BT /F2 11 Tf 1 0 0 1 49 537 Tm (SELECTED PUBLIC GITHUB PROJECTS) Tj ET
+BT /F2 10 Tf 1 0 0 1 49 508 Tm (NPS-Action) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 488 Tm (github.com/helenpayne/NPS-Action) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 471 Tm (Shell-based repository for NPS-related network automation work.) Tj ET
+BT /F2 10 Tf 1 0 0 1 49 454 Tm (NPS-Action2) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 434 Tm (github.com/helenpayne/NPS-Action2) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 417 Tm (Related Shell project exploring NPS automation workflows.) Tj ET
+BT /F2 10 Tf 1 0 0 1 49 400 Tm (Actions-OpenWrt-GF-WPR003N-16MB) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 380 Tm (github.com/helenpayne/Actions-OpenWrt-GF-WPR003N-16MB) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 363 Tm (GitHub Actions workflow for OpenWrt firmware compilation, based) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 346 Tm (on the community-maintained Actions-OpenWrt template.) Tj ET
+BT /F2 11 Tf 1 0 0 1 49 321 Tm (INTERESTS AND WORKING STYLE) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 292 Tm (Learning through practical experiments with repeatable Linux builds,) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 275 Tm (networking configurations, CI execution and troubleshooting.) Tj ET
+BT /F2 11 Tf 1 0 0 1 49 250 Tm (WHY I AM APPLYING TO OMNIRUSH) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 221 Tm (I hope to explore state-of-the-art AI models for understanding codebases,) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 204 Tm (reviewing automation scripts, debugging Linux network configurations,) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 187 Tm (and developing reliable engineering workflows. I can offer grounded) Tj ET
+BT /F1 10 Tf 1 0 0 1 49 170 Tm (feedback from real-world open-source and hands-on experiments.) Tj ET
+0.2 0.2 0.2 rg
+BT /F1 8 Tf 1 0 0 1 49 34 Tm (Public GitHub portfolio evidence - no employment or education claims) Tj ET
+endstream
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000251 00000 n 
+0000000321 00000 n 
+0000000396 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+3066
+%%EOF
